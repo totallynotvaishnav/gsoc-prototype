@@ -1,0 +1,52 @@
+{
+  "name": "npm-test-publish-netjsondemo",
+  "version": "1.0.0",
+  "description": "a demo designed for refactoring the netjsongraph",
+  "scripts": {
+    "test": "jest",
+    "dev": "webpack-dev-server --open --hot --mode development",
+    "start": "npm run dev",
+    "build": "webpack --progress --hide-modules --mode production",
+    "build:test": "webpack --progress --mode development",
+    "cover": "npm run test -- --coverage && cat ./coverage/lcov.info | coveralls",
+    "precommit": "lint-staged",
+    "lint": "eslint --fix --ext .js src"
+  },
+  "lint-staged": {
+    "src/**/*.js": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "repository": "https://github.com/KuTuGu/NetJSONDemo",
+  "author": "YuFei Wang <zhongliwang48@gmail.com> (https://kutugu.github.io)",
+  "license": "license: (ISC)",
+  "keywords": [
+    "netjson",
+    "network",
+    "data",
+    "visualization"
+  ],
+  "devDependencies": {
+    "@babel/preset-env": "^7.4.4",
+    "acorn": "^6.0.0",
+    "coveralls": "^3.0.3",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.0",
+    "husky": "^0.14.3",
+    "jest": "^24.8.0",
+    "lint-staged": "^7.2.2",
+    "prettier": "1.14.2",
+    "webpack": "^4.17.2",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.7"
+  },
+  "dependencies": {
+    "echarts": "^4.2.1",
+    "leaflet": "^1.5.1"
+  }
+}
