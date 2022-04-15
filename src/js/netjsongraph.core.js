@@ -61,7 +61,6 @@ class NetJSONGraph {
     render() {
         const [JSONParam, ...resParam] = this.JSONParam;
         console.log(this);
-        console.log(resParam);
         this.config.onRender.call(this);
         this.event.once('onLoad', this.config.onLoad.bind(this));
 
@@ -71,16 +70,6 @@ class NetJSONGraph {
                 this.config.prepareData.call(this, JSONData);
                 this.data = JSONData;
                 console.log(this.data);
-                (function addNodeLinkOverlay(_this) {
-                    let nodeLinkOverlay = document.createElement('div');
-                    nodeLinkOverlay.setAttribute('class', 'njg-overlay njg-container');
-                    _this.el.appendChild(nodeLinkOverlay);
-                })(this);
-
-                if (this.config.metadata) {
-                    this.el.appendChild(this.utils.NetJSONMetadata.call(this));
-                }
-
                 if (this.config.dealDataByWorker) {
                     this.utils.dealDataByWorker.call(this, JSONData, this.config.dealDataByWorker);
                 } else {

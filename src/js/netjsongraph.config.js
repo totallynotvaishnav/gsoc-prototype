@@ -70,7 +70,7 @@ const NetJSONGraphDefaultConfig = {
         layout: 'force',
         label: {
             show: true,
-            color: '#000000',
+            color: '#000',
             position: 'top',
         },
         force: {
@@ -92,8 +92,8 @@ const NetJSONGraphDefaultConfig = {
     mapLinkConfig: [{}],
     mapNodeConfig: {
         label: {
-            show: true,
-            color: '#000000',
+            show: false,
+            color: '#333',
             position: 'top',
             formatter: '{b}',
         },
@@ -214,7 +214,7 @@ const NetJSONGraphDefaultConfig = {
     })(),
     linkStyleProperty: () => ({
         width: 5,
-        color: '#76D67F',
+        color: '#4682B4',
         // shadowColor: 'rgba(0, 0, 0, 0.5)',
         // shadowBlur: 10,
     }),
@@ -240,24 +240,7 @@ const NetJSONGraphDefaultConfig = {
      * @this  {object}        The instantiated object of NetJSONGraph
      *
      */
-    onClickElement: function(type, data) {
-        let nodeLinkOverlay = document.getElementsByClassName('njg-overlay')[0];
-        nodeLinkOverlay.style.visibility = 'visible';
-        nodeLinkOverlay.innerHTML = `
-        <div class="njg-inner">
-            ${type === 'link' ? this.utils.linkInfo(data) : this.utils.nodeInfo(data)}
-        </div>
-    `;
-
-        const closeA = document.createElement('a');
-        closeA.setAttribute('class', 'njg-close');
-        closeA.setAttribute('id', 'nodelinkOverlay-close');
-        closeA.onclick = () => {
-            nodeLinkOverlay.style.visibility = 'hidden';
-        };
-
-        nodeLinkOverlay.appendChild(closeA);
-    },
+    onClickElement: function(type, data) {},
 };
 
 export default { ...NetJSONGraphDefaultConfig };

@@ -1,4 +1,5 @@
 import NetJSONGraphCore from './netjsongraph.core.js';
+import GUI from './gui.js';
 import { NetJSONGraphRender, echarts, L } from './netjsongraph.render.js';
 import registerLeafletSystem from '../../lib/js/echarts-leaflet/index.js';
 
@@ -22,12 +23,14 @@ class NetJSONGraph {
             config.render = NetJSONGraphRender.prototype.graphRender;
         }
 
-        let graph = new NetJSONGraphCore(JSONParam);
+        const graph = new NetJSONGraphCore(JSONParam);
         Object.setPrototypeOf(NetJSONGraphRender.prototype, graph.utils);
         graph.utils = new NetJSONGraphRender();
         graph.setUtils();
 
         graph.event = graph.utils.createEvent();
+        const gui = new GUI(graph);
+
         graph.setConfig(
             Object.assign(
                 {
@@ -41,6 +44,7 @@ class NetJSONGraph {
                      * @return {object}         this.config
                      */
                     onInit: function() {
+                        gui.init();
                         return this.config;
                     },
 
@@ -55,7 +59,6 @@ class NetJSONGraph {
                      */
                     onRender: function() {
                         this.utils.showLoading.call(this);
-
                         return this.config;
                     },
 
@@ -95,8 +98,13 @@ class NetJSONGraph {
                      * @return {object}         this.config
                      */
                     onLoad: function() {
+                        gui.createAboutContainer(graph);
+                        gui.switchGraphMode(graph);
+                        this.config.onClickElement = (type, data) => {
+                            gui.getNodeLinkInfo(type, data);
+                            gui.sideBar.classList.remove('hidden');
+                        };
                         this.utils.hideLoading.call(this);
-
                         return this.config;
                     },
                 },
@@ -104,8 +112,7 @@ class NetJSONGraph {
             )
         );
         graph.echarts = echarts.init(graph.el, null, {
-            // renderer: graph.config.svgRender ? 'svg' : 'canvas',
-            renderer: 'svg',
+            renderer: graph.config.svgRender ? 'svg' : 'canvas',
         });
 
         graph.config.onInit.call(graph);
@@ -124,3 +131,4 @@ registerLeafletSystem(echarts, L, {
 window.NetJSONGraph = NetJSONGraph;
 window.echarts = echarts;
 window.L = L;
+export default NetJSONGraph;

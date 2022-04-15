@@ -19,46 +19,6 @@ body {
     right: 0;
 }
 
-.njg-container {
-    background: #fbfbfb;
-    border-radius: 2px;
-    border: 1px solid #ccc;
-    color: #6d6357;
-    line-height: 20px;
-    max-width: 400px;
-    min-width: 200px;
-    padding: 10px 15px;
-}
-
-.njg-overlay {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    z-index: 999;
-    visibility: hidden;
-    user-select: text;
-}
-
-.njg-metadata {
-    position: absolute;
-    left: 10px;
-    top: 10px;
-    width: 200px;
-    word-break: break-all;
-    z-index: 999;
-    user-select: text;
-}
-
-.njg-close {
-    cursor: pointer;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-}
-.njg-close:before {
-    content: '\2716';
-}
-
 #graphChartContainer {
     width: 100%;
     height: 100%;
@@ -99,8 +59,30 @@ body {
     text-align: center;
 }
 
-.leaflet-tile-container {
-    -webkit-transform-origin: 0 0 !important;
-    height: 1600px !important;
-    width: 1600px !important;
+.leaflet-control-zoom {
+    top: 55px !important;
+    border: 0 !important;
+}
+
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+    background: rgba(217, 79, 52, 0.85) !important;
+    color: #fff !important;
+}
+
+.leaflet-zoom-animated {
+    transform-origin: 0 0 !important;
+}
+
+.leaflet-zoom-anim > .leaflet-zoom-animated {
+    transition: transform 0.25s cubic-bezier(0, 0, 0.25, 1) !important;
+    will-change: transform !important;
+}
+
+.leaflet-zoom-anim > .leaflet-zoom-hide {
+    visibility: hidden !important;
+}
+
+.leaflet-zoom-anim > .leaflet-tile {
+    transition: none !important;
 }
