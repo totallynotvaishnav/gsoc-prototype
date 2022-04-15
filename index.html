@@ -3,20 +3,53 @@
 <head>
     <title>netjsongraph.js: basic example</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin=""/>
+    <!-- theme can be easily customized via css -->
+    <link href="./src/css/netjsongraph-theme.css" rel="stylesheet">
+    <link href="./src/css/netjsongraph.css" rel="stylesheet">
 </head>
 <body>
-    <a href="./examples/netjsongraph.html" target="_blank">Link to netjsongraph base html</a><br/>
-    <a href="./examples/netjsonmap.html" target="_blank">Link to netjsonmap base html</a><br/>
-    <a href="./examples/netjson-bigData.html" target="_blank">Link to netjsongraph bigData html</a><br/>
-    <a href="./examples/netjson-multipleInterfaces.html" target="_blank">Link to netjsongraph multiple interfaces html</a><br/>
-    <a href="./examples/netjson-searchElements.html" target="_blank">Link to netjsongraph search elements html</a><br/>
-    <a href="./examples/netjson-dateParse.html" target="_blank">Link to netjsongraph dateParse html</a><br/>
-    <a href="./examples/netjson-switchRenderMode.html" target="_blank">Link to netjsongraph switch render mode html</a><br/>
-    <a href="./examples/netjson-switchGraphMode.html" target="_blank">Link to netjsongraph switch graph mode html</a><br/>
-    <a href="./examples/netjson-updateData.html" target="_blank">Link to netjsongraph updateData realtime html</a><br/>
-    <a href="./examples/netjsongraph-nodeExpand.html" target="_blank">Link to netjsongraph nodes expand or fold html</a><br/>
-    <a href="./examples/netjsonmap-animation.html" target="_blank">Link to netjsongraph map animation lines html</a><br/>
-    <a href="./examples/netjsonmap-indoormap.html" target="_blank">Link to netjsongraph indoormap html</a><br/>
-    <a href="./examples/netjsonmap-plugins.html" target="_blank">Link to netjsongraph leaflet plugins html</a><br/>
-</body>
+    <script type="text/javascript" src="./dist/netjsongraph.min.js"></script>
+    <script type="text/javascript">
+        const map = new NetJSONGraph("./examples/data/netjsonmap.json", {
+            render: "map",
+            mapNodeConfig: {
+                label: {
+                    offset: [0, -10],
+                }
+            },
+            
+            // set map tiles config, can set multiple values.
+            mapTileConfig: [{
+                label: "Blue Street",
+                urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                options: {
+                    minZoom: 2, 
+                    maxZoom: 20,
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                }
+            }],
+
+            
+            // set map initial state.
+            mapOptions: {
+                center: [46.86764405052012, 19.675998687744144],
+                zoom: 5,
+            },
+            
+            // Convert to internal json format
+            prepareData: data => {
+                data.nodes.map(node => {
+                    node.label = node.name;
+                    node.properties = Object.assign(node.properties || {}, {
+                        location: node.location,
+                    })
+                })
+            },
+        });
+        map.render();
+    </script>
 </html>
+
