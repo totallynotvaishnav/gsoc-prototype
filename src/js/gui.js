@@ -140,34 +140,10 @@ class GUI {
         };
     }
 
-    switchGraphMode(_this) {
-        this.renderModeSelector.addEventListener('click', () => {
-            if (_this.config.render === _this.utils.mapRender) {
-                console.log('map to graph');
-                _this.config.render = _this.utils.graphRender;
-                _this.echarts.dispose();
-                const graph = new NetJSONGraph(_this.data, {
-                    ..._this.config,
-                    onLoad: _this.config.onLoad.bind(_this),
-                });
-                graph.render();
-            } else {
-                _this.config.render = _this.utils.mapRender;
-                console.log('graph to map');
-                const graph = new NetJSONGraph(_this.data, {
-                    ..._this.config,
-                    render: 'map',
-                    onLoad: _this.config.onLoad.bind(_this),
-                });
-                graph.render();
-            }
-        });
-    }
-
     init() {
         this.controls = this.createControls(this._this);
-        this.renderModeSelector = this.createRenderModeSelector();
         this.sideBar = this.createSideBar();
+        this.renderModeSelector = this.createRenderModeSelector();
     }
 }
 

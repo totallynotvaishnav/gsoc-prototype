@@ -44,7 +44,6 @@ class NetJSONGraph {
                      * @return {object}         this.config
                      */
                     onInit: function() {
-                        gui.init();
                         return this.config;
                     },
 
@@ -98,8 +97,21 @@ class NetJSONGraph {
                      * @return {object}         this.config
                      */
                     onLoad: function() {
+                        gui.init();
                         gui.createAboutContainer(graph);
-                        gui.switchGraphMode(graph);
+                        gui.renderModeSelector.onclick = () => {
+                            if (this.config.render === this.utils.mapRender) {
+                                this.config.render = this.utils.graphRender;
+                                this.echarts.dispose();
+                                const graph = new NetJSONGraph(this.data, {
+                                    ...this.config,
+                                });
+                                graph.render();
+                            } else {
+                                this.config.render = this.utils.mapRender;
+                                this.config.render(this.data, this);
+                            }
+                        };
                         this.config.onClickElement = (type, data) => {
                             gui.getNodeLinkInfo(type, data);
                             gui.sideBar.classList.remove('hidden');

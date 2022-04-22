@@ -220,22 +220,22 @@ class NetJSONGraphRender {
             }
         });
 
-        let series = [Object.assign(configs.mapNodeConfig, {
-                type:
-                    configs.mapNodeConfig.type === 'effectScatter'
-                        ? 'effectScatter'
-                        : 'scatter',
+        let series = [
+            Object.assign(configs.mapNodeConfig, {
+                type: configs.mapNodeConfig.type === 'effectScatter' ? 'effectScatter' : 'scatter',
                 coordinateSystem: 'leaflet',
                 data: nodesData,
-                 animationDuration: 2000,
-            }), ...configs.mapLinkConfig.map((lineConfig) =>
+                animationDuration: 2000,
+            }),
+            ...configs.mapLinkConfig.map((lineConfig) =>
                 Object.assign(lineConfig, {
                     type: 'lines',
                     coordinateSystem: 'leaflet',
                     data: linesData,
                     animationDuration: 2000,
                 })
-            )];
+            ),
+        ];
 
         return {
             leaflet: {
@@ -287,6 +287,18 @@ class NetJSONGraphRender {
         _this.utils.echartsSetOption(_this.utils.generateMapOption(JSONData, _this), _this);
 
         _this.leaflet = _this.echarts._api.getCoordinateSystems()[0].getLeaflet();
+        // var geojsonFeature = {
+        //     type: 'Feature',
+        //     properties: {
+        //         name: 'Coors Field',
+        //         amenity: 'Baseball Stadium',
+        //         popupContent: 'This is where the Rockies play!',
+        //     },
+        //     geometry: { type: 'Point', coordinates: [49, 29] },
+        // };
+        // const map = _this.echarts._coordSysMgr._coordinateSystems[0]._map;
+        // L.geoJSON(geojsonFeature).addTo(map);
+        // console.log(map);
 
         _this.event.emit('onLoad');
         _this.event.emit('renderArray');
