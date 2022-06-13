@@ -225,14 +225,14 @@ class NetJSONGraphRender {
                 type: configs.mapNodeConfig.type === 'effectScatter' ? 'effectScatter' : 'scatter',
                 coordinateSystem: 'leaflet',
                 data: nodesData,
-                animationDuration: 2000,
+                animationDuration: 1000,
             }),
             ...configs.mapLinkConfig.map((lineConfig) =>
                 Object.assign(lineConfig, {
                     type: 'lines',
                     coordinateSystem: 'leaflet',
                     data: linesData,
-                    animationDuration: 2000,
+                    animationDuration: 0,
                 })
             ),
         ];
